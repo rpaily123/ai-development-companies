@@ -89,7 +89,7 @@ function disk_prices_shortcode($atts) {
                     <label><?php _e('Price Range', 'disk-prices'); ?></label>
                     <div class="price-inputs">
                         <input type="number" name="price_min" id="price_min" placeholder="<?php _e('Min', 'disk-prices'); ?>" value="<?php echo esc_attr($current_price_min); ?>">
-                        <span>-</span>
+                        <span><?php _e('to', 'disk-prices'); ?></span>
                         <input type="number" name="price_max" id="price_max" placeholder="<?php _e('Max', 'disk-prices'); ?>" value="<?php echo esc_attr($current_price_max); ?>">
                     </div>
                 </div>
@@ -130,9 +130,13 @@ function disk_prices_shortcode($atts) {
                         <?php foreach ($results as $disk) : ?>
                             <tr>
                                 <td><?php echo esc_html($disk->capacity); ?></td>
-                                <td><?php echo esc_html($disk->technology); ?></td>
-                                <td><?php echo esc_html(number_format($disk->price, 2)); ?></td>
-                                <td><?php echo esc_html(number_format($disk->price_per_tb, 2)); ?></td>
+                                <td>
+                                    <span class="technology-badge technology-<?php echo esc_attr(strtolower($disk->technology)); ?>">
+                                        <?php echo esc_html($disk->technology); ?>
+                                    </span>
+                                </td>
+                                <td class="price-cell"><?php echo esc_html(number_format($disk->price, 2)); ?></td>
+                                <td class="price-cell"><?php echo esc_html(number_format($disk->price_per_tb, 2)); ?></td>
                                 <td><?php echo esc_html($disk->warranty); ?></td>
                                 <td><?php echo esc_html($disk->condition_status); ?></td>
                                 <td>
@@ -192,9 +196,13 @@ function disk_prices_ajax_filter() {
                 <?php foreach ($results as $disk) : ?>
                     <tr>
                         <td><?php echo esc_html($disk->capacity); ?></td>
-                        <td><?php echo esc_html($disk->technology); ?></td>
-                        <td><?php echo esc_html(number_format($disk->price, 2)); ?></td>
-                        <td><?php echo esc_html(number_format($disk->price_per_tb, 2)); ?></td>
+                        <td>
+                            <span class="technology-badge technology-<?php echo esc_attr(strtolower($disk->technology)); ?>">
+                                <?php echo esc_html($disk->technology); ?>
+                            </span>
+                        </td>
+                        <td class="price-cell"><?php echo esc_html(number_format($disk->price, 2)); ?></td>
+                        <td class="price-cell"><?php echo esc_html(number_format($disk->price_per_tb, 2)); ?></td>
                         <td><?php echo esc_html($disk->warranty); ?></td>
                         <td><?php echo esc_html($disk->condition_status); ?></td>
                         <td>
